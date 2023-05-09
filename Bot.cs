@@ -7,7 +7,7 @@ namespace MyGame.Entities
     public class Bot : MonoBehaviour
     {
         public Transform destination; // La destination que le bot doit atteindre
-        public float speed; // Vitesse de déplacement du bot
+        public float speed = 5f; // Vitesse de déplacement du bot
 
         
         private GameObject basePlayer;
@@ -27,14 +27,16 @@ namespace MyGame.Entities
         // Update is called once per frame
         void Update()
         {
-            // Calculer la direction vers la destination
             Vector3 direction = destination.position - transform.position;
+            if (destination.position.x > transform.position.x)
+            {
+                transform.position += direction.normalized * speed * Time.deltaTime;
+            }
 
-            // Déplacer le bot vers la destination à la vitesse spécifiée
-            transform.position += direction.normalized * speed * Time.deltaTime;
 
-            // Faire en sorte que l'objet regarde vers sa direction de déplacement
-            transform.LookAt(transform.position + direction.normalized);
+            Debug.Log("destination " + destination.position);
+            Debug.Log("direction " + direction);
+
         }
 
         void OnDrawGizmosSelected()
