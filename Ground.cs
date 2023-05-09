@@ -8,18 +8,12 @@ using MyGame.Player;
 namespace MyGame.World{
     public class Ground : MonoBehaviour
     {
-        private float maxX;
-        private float minX;
-        private float maxZ;
-        private float minZ;
+        private Vector3 scale;
 
-        public float MaxX { get; set; }
-        public float MinX { get; set; }
-        public float MaxZ { get; set; }
-        public float MinZ { get; set; }
-
-        private BasePlayer player = null;
-        private Base enemy = null;
+        public void Initialize(float x = 20f,float y =  20f,float z =  20f)
+        {
+            transform.localScale = new Vector3(x, y, z);
+        }
 
         private void Awake()
         {
@@ -28,54 +22,34 @@ namespace MyGame.World{
         // Start is called before the first frame update
         void Start()
         {
-            // Récupérer le composant Renderer de l'objet
-            Renderer renderer = GetComponent<Renderer>();
-
-            // Récupérer les dimensions de l'objet à partir de la propriété bounds
-            float objectWidth = renderer.bounds.size.x;
-            float objectHeight = renderer.bounds.size.y;
-            float objectDepth = renderer.bounds.size.z;
-            float positionX = transform.position.x;
-
-            // Calculer les valeurs maximales et minimales pour x et z
-            maxX = objectWidth / 2f;
-            minX = -maxX;
-            maxZ = objectDepth / 2f;
-            minZ = -maxZ;
-
-            if(player == null){
-                // Créer un cube
-                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-
-                // Ajouter un composant personnalisé à l'objet cube
-                player = cube.AddComponent<BasePlayer>();
-
-                player.terrain = this;
-                player.positionX(100);
-            }
-
-            if(enemy == null){
-                // Créer un cube
-                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-
-                // Ajouter un composant personnalisé à l'objet cube
-                Base enemy = cube.AddComponent<Base>();
-
-                enemy.terrain = this;
-                enemy.enemy = player;
-                enemy.positionX(minX);
-
-                if (player != null){
-                    player.enemy = enemy;
-                }
-            }
         }
 
         // Update is called once per frame
         void Update()
         {
-            
         }
+
+        // public float getMaxX()
+        // {
+        //     float objectWidth = GetComponent<Renderer>().bounds.size.x;
+        //     return objectWidth / 2f;
+        // }
+
+        // public float getMaxZ()
+        // {
+        //     float objectDepth = GetComponent<Renderer>().bounds.size.z;
+        //     return objectDepth / 2f;
+        // }
+
+        // public float getMinX()
+        // {
+        //     return -this.getMaxX();
+        // }
+
+        // public float getMinZ()
+        // {
+        //     return -this.getMaxZ();
+        // }
     }
 
 }

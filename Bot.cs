@@ -15,14 +15,13 @@ namespace MyGame.Entities
 
         private void Awake()
         {
-            GameObject basePlayer = GameObject.Find("basePlayer");
-            GameObject baseEnemy = GameObject.Find("baseEnemy");
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            
+            // Définir la taille du cube
+            transform.localScale = new Vector3(5, 5, 5);
         }
 
         // Update is called once per frame

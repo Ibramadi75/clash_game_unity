@@ -8,6 +8,7 @@ namespace MyGame.Player{
 
     public class BasePlayer : Base
     {
+
         public BasePlayer() : base(){
             position = new Vector3(100, 20, 0);
             hp = 100;
@@ -16,6 +17,8 @@ namespace MyGame.Player{
         // Start is called before the first frame update
         void Start()
         {
+            
+            Debug.Log("Base enemy : " + enemy.ToString());
             // Définir la position du cube
             transform.position = this.position;
             // Définir la taille du cube
@@ -41,7 +44,7 @@ namespace MyGame.Player{
             Rigidbody rb = capsule.AddComponent<Rigidbody>();
             Bot bot = capsule.AddComponent<Bot>();
 
-            bot.destination.position = enemy.transform.position;
+            bot.destination = base.enemy.transform;
         }
     }
 }
