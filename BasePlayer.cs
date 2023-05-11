@@ -9,6 +9,9 @@ namespace MyGame.Player{
     public class BasePlayer : Base
     {
 
+        private float lastAttackTime;
+        private float delayBetweenAttack = 2.0f;
+
         public BasePlayer() : base(){
             position = new Vector3(100, 20, 0);
             health = 100;
@@ -20,15 +23,27 @@ namespace MyGame.Player{
             transform.position = this.position;
 
             transform.localScale = new Vector3(10, 10, 10);
+
+            lastAttackTime = Time.time;
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyUp(KeyCode.E))
+            if (Input.GetKeyUp(KeyCode.E) && canAttack())
             {
                 instantiateBot(base.enemy);
+                lastAttackTime = Time.time;
             }
+        }
+
+        bool canAttack()
+        {
+            if (Time.time > lastAttackTime + delayBetweenAttack || lastAttackTime == 0.0f)
+            {
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
