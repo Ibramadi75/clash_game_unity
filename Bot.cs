@@ -6,10 +6,9 @@ namespace MyGame.Entities
 {
     public class Bot : MonoBehaviour
     {
-        public Transform destination; // La destination que le bot doit atteindre
-        public float speed = 5f; // Vitesse de déplacement du bot
+        public Transform destination; // Destination that the bot have to join
+        public float speed = 5f; // Bot speed
 
-        
         private GameObject basePlayer;
         private GameObject baseEnemy;
 
@@ -20,7 +19,7 @@ namespace MyGame.Entities
         // Start is called before the first frame update
         void Start()
         {
-            // Définir la taille du cube
+            // Define cube size
             transform.localScale = new Vector3(5, 5, 5);
         }
 
@@ -33,15 +32,13 @@ namespace MyGame.Entities
                 transform.position += direction.normalized * speed * Time.deltaTime;
             }
 
-
-            Debug.Log("destination " + destination.position);
-            Debug.Log("direction " + direction);
-
         }
 
+        /// <summary>
+        /// Show a green line between the bot and his destination
+        /// </summary>
         void OnDrawGizmosSelected()
         {
-            // Dessiner une ligne reliant le bot à la destination
             if (destination != null)
             {
                 Gizmos.color = Color.green;

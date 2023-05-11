@@ -28,28 +28,6 @@ namespace MyGame.World{
         void Update()
         {
         }
-
-        // public float getMaxX()
-        // {
-        //     float objectWidth = GetComponent<Renderer>().bounds.size.x;
-        //     return objectWidth / 2f;
-        // }
-
-        // public float getMaxZ()
-        // {
-        //     float objectDepth = GetComponent<Renderer>().bounds.size.z;
-        //     return objectDepth / 2f;
-        // }
-
-        // public float getMinX()
-        // {
-        //     return -this.getMaxX();
-        // }
-
-        // public float getMinZ()
-        // {
-        //     return -this.getMaxZ();
-        // }
     }
 
 }

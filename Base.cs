@@ -9,34 +9,37 @@ namespace MyGame{
     {
         protected Vector3 position;
         public Vector3 Position { get; set;}
-        protected int hp;
+        protected int health;
 
         public Base enemy;
         public Ground terrain;
 
-        public int Hp { get; set; }
+        public int Health { get; set; }
 
         public Base(){
             position = new Vector3(0, 20, 0);
-            hp = 100;
+            health = 100;
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            // Définir la position du cube
+            // Base position
             transform.position = this.position;
 
-            // Définir la taille du cube
+            // Base dimensions
             transform.localScale = new Vector3(10, 10, 10);
         }
 
         // Update is called once per frame
         void Update()
         {
-            
         }
 
+        /// <summary>
+        /// Allow to change position of a Base on the x axis.
+        /// </summary>
+        /// <param name="x">x value to set</param>
         public void positionX(float x){
             this.position = new Vector3(x, 20, 0);
         }

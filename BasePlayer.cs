@@ -17,14 +17,10 @@ namespace MyGame.Player{
         // Start is called before the first frame update
         void Start()
         {
-            
-            Debug.Log("Base enemy : " + enemy.ToString());
-            // Définir la position du cube
             transform.position = this.position;
-            // Définir la taille du cube
+
             transform.localScale = new Vector3(10, 10, 10);
         }
-
 
         // Update is called once per frame
         void Update()
@@ -35,12 +31,14 @@ namespace MyGame.Player{
             }
         }
 
+        /// <summary>
+        /// Create a new bot that will attack a Base 
+        /// </summary>
+        /// <param name="enemy">Enemy that bot have to attack</param>
         private void instantiateBot(Base enemy)
         {
-            // Créer une capsule
             GameObject capsule = GameObject.CreatePrimitive(PrimitiveType.Capsule);
 
-            // Ajouter un composant personnalisé à l'objet capsule
             Rigidbody rb = capsule.AddComponent<Rigidbody>();
             Bot bot = capsule.AddComponent<Bot>();
 

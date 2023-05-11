@@ -15,7 +15,6 @@ namespace MyGame{
         void Start(){
             if (terrain == null)
             {
-                Debug.Log("Create terrain");
                 // Créer un cube
                 GameObject terrainObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
                 terrainObject.transform.localScale = new Vector3(20f, 2f, 6f);
@@ -32,7 +31,6 @@ namespace MyGame{
                 // Créer un cube
                 GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-                // Ajouter un composant personnalisé à l'objet cube
                 player = cube.AddComponent<BasePlayer>();
 
                 player.terrain = terrain;
@@ -42,10 +40,9 @@ namespace MyGame{
 
             if(enemy == null)
             {
-                // Créer un cube
+                // Create cube
                 GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-                // Ajouter un composant personnalisé à l'objet cube
                 Base enemy = cube.AddComponent<Base>();
                 enemy.terrain = terrain;
                 enemy.enemy = player;
@@ -61,7 +58,6 @@ namespace MyGame{
         // Update is called once per frame
         void Update()
         {
-            
         }
     }
 }
