@@ -11,7 +11,7 @@ namespace MyGame.Player{
 
         public BasePlayer() : base(){
             position = new Vector3(100, 20, 0);
-            hp = 100;
+            health = 100;
         }
 
         // Start is called before the first frame update
@@ -39,10 +39,12 @@ namespace MyGame.Player{
         {
             GameObject capsule = GameObject.CreatePrimitive(PrimitiveType.Capsule);
 
-            Rigidbody rb = capsule.AddComponent<Rigidbody>();
             Bot bot = capsule.AddComponent<Bot>();
+            bot.tag = "Bot";
+            Rigidbody rb = capsule.AddComponent<Rigidbody>();
 
             bot.destination = base.enemy.transform;
+            bot.transform.position = new Vector3(transform.position.x, bot.Size, transform.position.z);
         }
     }
 }

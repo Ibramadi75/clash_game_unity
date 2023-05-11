@@ -7,10 +7,19 @@ namespace MyGame.Entities
     public class Bot : MonoBehaviour
     {
         public Transform destination; // Destination that the bot have to join
-        public float speed = 5f; // Bot speed
+        protected Rigidbody rb;
+
+        public float speed = 10f; // Bot speed
 
         private GameObject basePlayer;
         private GameObject baseEnemy;
+
+        private int size = 5;
+        public int Size
+        {
+            get { return size; }
+            set { size = value; }
+        }
 
         private void Awake()
         {
@@ -20,18 +29,19 @@ namespace MyGame.Entities
         void Start()
         {
             // Define cube size
-            transform.localScale = new Vector3(5, 5, 5);
+            transform.localScale = new Vector3(size, size, size);
+
+            rb = GetComponent<Rigidbody>();
+            // do not move
+            rb.freezeRotation = true;
+            rb.interpolation = RigidbodyInterpolation.Extrapolate;
         }
 
         // Update is called once per frame
         void Update()
         {
-            Vector3 direction = destination.position - transform.position;
-            if (destination.position.x > transform.position.x)
-            {
-                transform.position += direction.normalized * speed * Time.deltaTime;
-            }
-
+            goToDestination(destination);
+            keepOnTheGround();
         }
 
         /// <summary>
@@ -43,6 +53,50 @@ namespace MyGame.Entities
             {
                 Gizmos.color = Color.green;
                 Gizmos.DrawLine(transform.position, destination.position);
+            }
+        }
+
+        /// <summary>
+        /// Make the bot go to a specific destination
+        /// </summary>
+        /// <param name="destination"></param>
+        void goToDestination(Transform destination)
+        {
+            Vector3 direction = destination.position - transform.position;
+            if (destination.position.x > transform.position.x)
+            {
+                transform.position += direction.normalized * speed * Time.deltaTime;
+            }
+        }
+
+        /// <summary>
+        /// Restrict Y movement of bots
+        /// </summary>
+        void keepOnTheGround()
+        {
+            var pos = transform.position;
+            // Vérifier si la mini-entité va s'envoler
+            if (pos.y > size)
+            {
+                // Si la mini-entité va s'envoler, ne pas la déplacer en Y
+                pos.y = size;
+                transform.position = pos;
+            }
+        }
+
+        public float pushForce = 10f;
+
+        void OnCollisionEnter(Collision collision)
+        {
+            // Vérifie si l'objet avec lequel le bot entre en collision est un autre bot
+            if (collision.gameObject.CompareTag("Bot"))
+            {
+                // Calcule la direction à laquelle pousser les bots pour les sortir de la zone de collision
+                Vector3 pushDirection = transform.position - collision.transform.position;
+                pushDirection = pushDirection.normalized;
+
+                // Applique une force inverse pour pousser les bots à l'extérieur de la zone de collision
+                rb.AddForce(pushDirection * pushForce, ForceMode.Impulse);
             }
         }
 

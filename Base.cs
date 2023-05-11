@@ -16,6 +16,8 @@ namespace MyGame{
 
         public int Health { get; set; }
 
+        protected float safetyRadius = 80f;
+
         public Base(){
             position = new Vector3(0, 20, 0);
             health = 100;
