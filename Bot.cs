@@ -9,10 +9,12 @@ namespace MyGame.Entities
         public Transform destination; // Destination that the bot have to join
         protected Rigidbody rb;
 
-        public float speed = 10f; // Bot speed
+        public float speed = 30f; // Bot speed
 
         private GameObject basePlayer;
         private GameObject baseEnemy;
+
+        public float pushForce = 10f;
 
         private int size = 5;
         public int Size
@@ -42,6 +44,10 @@ namespace MyGame.Entities
         {
             goToDestination(destination);
             keepOnTheGround();
+            if(fallOff())
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         /// <summary>
@@ -84,8 +90,10 @@ namespace MyGame.Entities
             }
         }
 
-        public float pushForce = 10f;
-
+        /// <summary>
+        /// TODO : Comment this method
+        /// </summary>
+        /// <param name="collision"></param>
         void OnCollisionEnter(Collision collision)
         {
             // Vérifie si l'objet avec lequel le bot entre en collision est un autre bot
@@ -100,5 +108,18 @@ namespace MyGame.Entities
             }
         }
 
+        /// <summary>
+        /// Check if bot fall off the platform
+        /// </summary>
+        /// <returns>True if fall, False if not</returns>
+        bool fallOff()
+        {
+            var pos = transform.position;
+            if (pos.y < -30.0f)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
